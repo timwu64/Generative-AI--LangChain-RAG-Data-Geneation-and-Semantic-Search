@@ -172,8 +172,6 @@ openai.api_key = get_api_key(api_key_file)
 
 ## Conclusion
 
-"HomeMatch" is designed to enhance the property search experience by offering personalized and engaging real estate listings. ### Conclusion
-
 The homes listed below have been carefully selected based on the preferences. They meet basic requirements like budget, size, and the number of bedrooms and bathrooms. Furthermore, they align with the customer’s personalized preferences for a peaceful neighborhood, quality education, convenient shopping options, desired amenities, and transportation needs. These homes offer a perfect balance between suburban tranquility and urban amenities.
 
 ### Personalized Home Selections:
