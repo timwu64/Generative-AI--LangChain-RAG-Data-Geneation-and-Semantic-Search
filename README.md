@@ -35,14 +35,14 @@ The core functionality of "HomeMatch" includes:
 1. **Create a new Python project**, setting up a virtual environment.
 2. **Install necessary packages**. Essential packages include LangChain, an LLM library such as OpenAI's GPT, and a vector database package (e.g., ChromaDB).
 
-   Installation commands:
-   ```bash
-   pip install langchain==0.0.305
-   pip install openai==0.28.1
-   pip install chromadb==0.4.15
-   pip install tiktoken
-   pip install langchain_core
-   ```
+Installation commands:
+```bash
+pip install langchain==0.0.305
+pip install openai==0.28.1
+pip install chromadb==0.4.15
+pip install tiktoken
+pip install langchain_core
+```
 
 ### Step 2: Project File Structure
 
@@ -102,14 +102,28 @@ openai.api_key = get_api_key(api_key_file)
    ```
 
 3. **Generate Real Estate Listings**: Use the LLM to create property listings that will be stored in the vector database for matching with buyer preferences.
+   ```python
+   Generating Listings: 100%|██████████| 100/100 [16:10<00:00,  9.71s/it]
+Unique ID	Neighborhood	Price ($)	Bedrooms	Bathrooms	House Size (sqft)	Description	Neighborhood Description
+0	B792305	Brentwood, Los Angeles	1,450,000	4	3	3000	Welcome to this radiant Brentwood beauty, offe...	Brentwood, a wealthy district in Los Angeles, ...
+1	E528379	Beacon Hill, Boston	1,275,000	4	3	2100	Introducing a charming and distinctive 4-bedro...	Beacon Hill is an idyllic and prosperous neigh...
+2	H721436	Hyde Park, Chicago	1195000	5	3.5	3500	Discover the epitome of urban sophistication w...	Hyde Park, with its rich history and diverse c...
+3	E726593	Eastlake, Seattle	1,450,000	4	3.5	2800	Welcome to this striking 4-bedroom, 3.5-bathro...	Eastlake, Seattle is an urban neighborhood kno...
+4	L00001GB	Green Belt, Austin	899,000	3	3.5	2800	Enter a world of elegance and class with this ...	Green Belt, Austin is a vibrant and welcoming ...
+5	H956321	Westlake, Seattle	1,150,000	4	3	3150	Welcome to a breathtakingly beautiful 4-bedroo...	Westlake is a thriving community, beautifully ...
+6	R2020025	Lakeview, Chicago	1,350,000	4	3	3,000	Immerse yourself in the warmth and luxury of t...	Situated in the vibrant Lakeview, Chicago, you...
+7	H123456	South Lake Union, Seattle	1,200,000	3	3.5	2300	Welcome to the epitome of luxury and comfort c...	South Lake Union is a bustling urban neighborh...
+8	H548241	Bellevue, Washington	1,275,000	4	3	3200	Step into this luxurious, meticulously designe...	Bellevue, often rated as one of the best place...
+9	R583261	Capitol Hill, Seattle	1,350,800	5	3	2800	Welcome to this architectural marvel, located ...	Capitol Hill, Seattle is renowned for its vibr...
+```
 
-4. **Store Listings in Vector Database**: Initialize and populate your vector database with the generated listings and their embeddings.
+5. **Store Listings in Vector Database**: Initialize and populate your vector database with the generated listings and their embeddings.
 
-5. **Implement Buyer Preference Interface**: Collect and process buyer preferences to structure these for querying against the vector database.
+6. **Implement Buyer Preference Interface**: Collect and process buyer preferences to structure these for querying against the vector database.
 
-6. **Perform Listing Matching and Personalization**: Use semantic search to find listings matching the buyer's preferences and personalize the descriptions using LLMs.
+7. **Perform Listing Matching and Personalization**: Use semantic search to find listings matching the buyer's preferences and personalize the descriptions using LLMs.
 
-7. **Display Matched Listings**: Present the personalized listings to the user.
+8. **Display Matched Listings**: Present the personalized listings to the user.
 
 ## Additional Notes
 
