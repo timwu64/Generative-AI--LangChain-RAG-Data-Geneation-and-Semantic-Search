@@ -81,8 +81,24 @@ openai.api_key = get_api_key(api_key_file)
 
    ```python
    import openai
+   from langchain import LLMChain
    from langchain.llms import OpenAI
-   # Further imports and initializations
+   from langchain_core.prompts import ChatPromptTemplate
+   from langchain.prompts import PromptTemplate
+   from langchain.docstore.document import Document
+   from langchain.document_loaders.csv_loader import CSVLoader
+   from langchain.document_loaders import DataFrameLoader
+   from langchain.embeddings.openai import OpenAIEmbeddings
+   from langchain.text_splitter import CharacterTextSplitter
+   from langchain.vectorstores import Chroma
+   from langchain.chains import RetrievalQA
+   from langchain.chains.question_answering import load_qa_chain
+   from langchain.output_parsers import StructuredOutputParser, ResponseSchema
+   import pandas as pd
+   from tqdm import tqdm
+   import random
+
+   print(openai.__version__)
    ```
 
 3. **Generate Real Estate Listings**: Use the LLM to create property listings that will be stored in the vector database for matching with buyer preferences.
