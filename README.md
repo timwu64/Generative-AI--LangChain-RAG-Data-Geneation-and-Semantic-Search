@@ -181,7 +181,41 @@ openai.api_key = get_api_key(api_key_file)
 
 ## Conclusion
 
-"HomeMatch" is designed to enhance the property search experience by offering personalized and engaging real estate listings. Follow the setup and running instructions to deploy this innovative solution and contribute to transforming the real estate industry.
+"HomeMatch" is designed to enhance the property search experience by offering personalized and engaging real estate listings. ### Conclusion
+
+The homes listed below have been carefully selected based on the preferences. They meet basic requirements like budget, size, and the number of bedrooms and bathrooms. Furthermore, they align with the customer’s personalized preferences for a peaceful neighborhood, quality education, convenient shopping options, desired amenities, and transportation needs. These homes offer a perfect balance between suburban tranquility and urban amenities.
+
+### Personalized Home Selections:
+
+### 1. North Boulder, Colorado Gem
+
+- **UID**: P981245
+- **Price**: $875,000
+- **Size**: 2,300 sqft
+- **Bedrooms**: 4
+- **Bathrooms**: 3.0
+
+**Description**: This elegant 4-bedroom, 3-bathroom home in North Boulder offers an open-plan kitchen with modern appliances, a living room with a gas fireplace and backyard views, a master suite with a walk-in closet, and an en-suite bathroom. The backyard is designed for entertainment, complemented by a two-car garage and high-efficiency heating. North Boulder is celebrated for its family-friendly community, excellent schools, and convenient transportation options.
+
+### 2. Cherry Creek, Denver Delight
+
+- **UID**: R782991
+- **Price**: $890,000
+- **Size**: 2,000 sqft
+- **Bedrooms**: 4
+- **Bathrooms**: 3.0
+
+**Description**: Luxuriate in this 4-bedroom, 3-bathroom home in Cherry Creek, Denver, featuring spacious bedrooms, high-end bathroom finishes, a gourmet kitchen, and a large living room with hardwood floors. Energy-efficient windows and top-notch heating ensure comfort, while the backyard offers a serene outdoor space. Cherry Creek boasts top-rated schools and a perfect blend of suburban and urban living.
+
+### 3. Pearl District, Portland Urban Oasis
+
+- **UID**: L265432
+- **Price**: $899,000
+- **Size**: 2,200 sqft
+- **Bedrooms**: 3
+- **Bathrooms**: 2.5
+
+**Description**: Discover luxury in the Pearl District with this 3-bedroom, 2.5-bathroom home, featuring a master suite with heated marble bathroom flooring, a modern kitchen, and a living room with city skyline views. Additional amenities include an HVAC system, an electric car charging station, a rooftop terrace, and a private backyard. The Pearl District is known for its urban appeal and natural beauty.
 
 ## Environment and Dependencies
 
