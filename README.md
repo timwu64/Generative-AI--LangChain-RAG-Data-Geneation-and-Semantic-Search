@@ -9,23 +9,23 @@
 The primary goal of "HomeMatch" is to create a seamless, engaging, and tailored property search experience by:
 
 - **Understanding Buyer Preferences**: Capturing detailed buyer preferences in natural language, including location, budget, property type, amenities, and lifestyle choices.
-- **Integrating with Vector Databases**: Utilizing vector embeddings to match properties with buyer preferences based on various criteria.
 - **Personalizing Listing Descriptions**: Generating tailored property descriptions that highlight aspects relevant to the buyer’s preferences without altering factual information.
+- **Integrating with Vector Databases**: Utilizing vector embeddings to match properties with buyer preferences based on various criteria.
 - **Presenting Listings**: Showcasing personalized listings to potential buyers in a compelling and informative manner.
 
 ## Core Components
 
 - **LLM for Narrative Generation**: Generate property descriptions to individual buyer preferences.
-- **Vector Database Integration**: Efficiently matches listings with buyer preferences using semantic embeddings.
 - **User Preference Interface**: Captures and processes buyer preferences in a structured manner.
+- **Vector Database Integration**: Efficiently matches listings with buyer preferences using semantic embeddings.
 
 ## Functionality
 
 The core functionality of "HomeMatch" includes:
 
 - **Understanding Buyer Preferences**: Interpreting buyers' requirements and preferences in natural language, including to location, property type, budget, and amenities.
-- **Vector Database Integration**: Matching properties with buyer preferences by connecting with a vector database where all available property listings are stored.
 - **Personalized Listing Descriptions**: Generating customized property descriptions that highlight features relevant to the buyer's preferences, ensuring all information remains factual.
+- **Vector Database Integration**: Matching properties with buyer preferences by connecting with a vector database where all available property listings are stored.
 - **Presentation of Listings**: Displaying personalized listings in an engaging and informative manner.
 
 ## Setup Instructions
@@ -103,22 +103,18 @@ openai.api_key = get_api_key(api_key_file)
 
 3. **Generate Real Estate Listings**: Use the LLM to create property listings that will be stored in the vector database for matching with buyer preferences.
    ```python
+   # Generate real estate listings
+    listings = generate_real_estate_listings(100)
+
+    # Create a DataFrame from the listings
+    df = pd.DataFrame(listings)
+
+    # Print the DataFrame to verify its contents
+    df.head(10)
+
    Generating Listings: 100%|██████████| 100/100 [16:10<00:00,  9.71s/it]
    ```
-5. **Implement Buyer Preference Interface**: Collect and process buyer preferences to structure these for querying against the vector database.
-   
-6. **Store Listings in Vector Database**: Initialize and populate your vector database with the generated listings and their embeddings.
-   ```python
-    loader = DataFrameLoader(data_sort, page_content_column="Langchain_page_content")
-    docs = loader.load()
-    splitter = CharacterTextSplitter(chunk_size=2000, chunk_overlap=0)
-    split_docs = splitter.split_documents(docs)
-    embeddings = OpenAIEmbeddings(openai_api_key=openai.api_key)
-    db = Chroma.from_documents(split_docs, embeddings)
-    retriever=db.as_retriever()
-    ```
-
-7. **Perform Listing Matching and Personalization**: Use semantic search to find listings matching the buyer's preferences and personalize the descriptions using LLMs.
+4. **Implement Buyer Preference Interface**: Collect and process buyer preferences to structure these for querying against the vector database.
    ```python
     def collect_buyer_preferences():
     questions = [
@@ -147,20 +143,37 @@ openai.api_key = get_api_key(api_key_file)
     # Return the DataFrame containing the answers
     return answers_df
 
-# Collect preferences from the user and store them in a DataFrame
-buyer_preferences_df = collect_buyer_preferences()
-```
+    # Collect preferences from the user and store them in a DataFrame
+    buyer_preferences_df = collect_buyer_preferences()
+    ```
+   
+5. **Store Listings in Vector Database**: Initialize and populate your vector database with the generated listings and their embeddings.
+   ```python
+    loader = DataFrameLoader(data_sort, page_content_column="Langchain_page_content")
+    docs = loader.load()
+    splitter = CharacterTextSplitter(chunk_size=2000, chunk_overlap=0)
+    split_docs = splitter.split_documents(docs)
+    embeddings = OpenAIEmbeddings(openai_api_key=openai.api_key)
+    db = Chroma.from_documents(split_docs, embeddings)
+    retriever=db.as_retriever()
+    ```
 
-8. **Display Matched Listings**: Present the personalized listings to the user.
-```python
-# Load the QA chain
-chain = load_qa_chain(llm, prompt=prompt, chain_type="stuff")
+6. **Perform Listing Matching and Personalization**: Use semantic search to find listings matching the buyer's preferences and personalize the descriptions using LLMs.
+    ```python
+    similar_docs = db.similarity_search(query, k=10)
+    #similar_docs = db.similarity_search_with_score(query)
+    display(similar_docs)
+    ```
+9. **Display Matched Listings**: Present the personalized listings to the user.
+    ```python
+    # Load the QA chain
+    chain = load_qa_chain(llm, prompt=prompt, chain_type="stuff")
 
-# Run the chain with the extracted Document objects and the query
-results = chain.run(input_documents=similar_docs, query=query)
+    # Run the chain with the extracted Document objects and the query
+    results = chain.run(input_documents=similar_docs, query=query)
 
-print(results)
-```
+    print(results)
+    ```
 ## Additional Notes
 
 - **Version Control**: Keep track of the `openai` library version and other dependencies to ensure compatibility.
