@@ -217,6 +217,7 @@ The homes listed below have been carefully selected based on the preferences. Th
 
 ## Checklist
 
+- `README.md`: Documentation explaining functionality, setup, and dependencies.
 - `HomeMatch.ipynb`: Application code.
 - `real_estate_listings.csv`: At least 10 generated real estate listings for testing and development.
 - `api_key.txt`: Dummy api_key, please replace by your own api key.
