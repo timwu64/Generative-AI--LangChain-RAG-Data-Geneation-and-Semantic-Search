@@ -104,27 +104,63 @@ openai.api_key = get_api_key(api_key_file)
 3. **Generate Real Estate Listings**: Use the LLM to create property listings that will be stored in the vector database for matching with buyer preferences.
    ```python
    Generating Listings: 100%|██████████| 100/100 [16:10<00:00,  9.71s/it]
-Unique ID	Neighborhood	Price ($)	Bedrooms	Bathrooms	House Size (sqft)	Description	Neighborhood Description
-0	B792305	Brentwood, Los Angeles	1,450,000	4	3	3000	Welcome to this radiant Brentwood beauty, offe...	Brentwood, a wealthy district in Los Angeles, ...
-1	E528379	Beacon Hill, Boston	1,275,000	4	3	2100	Introducing a charming and distinctive 4-bedro...	Beacon Hill is an idyllic and prosperous neigh...
-2	H721436	Hyde Park, Chicago	1195000	5	3.5	3500	Discover the epitome of urban sophistication w...	Hyde Park, with its rich history and diverse c...
-3	E726593	Eastlake, Seattle	1,450,000	4	3.5	2800	Welcome to this striking 4-bedroom, 3.5-bathro...	Eastlake, Seattle is an urban neighborhood kno...
-4	L00001GB	Green Belt, Austin	899,000	3	3.5	2800	Enter a world of elegance and class with this ...	Green Belt, Austin is a vibrant and welcoming ...
-5	H956321	Westlake, Seattle	1,150,000	4	3	3150	Welcome to a breathtakingly beautiful 4-bedroo...	Westlake is a thriving community, beautifully ...
-6	R2020025	Lakeview, Chicago	1,350,000	4	3	3,000	Immerse yourself in the warmth and luxury of t...	Situated in the vibrant Lakeview, Chicago, you...
-7	H123456	South Lake Union, Seattle	1,200,000	3	3.5	2300	Welcome to the epitome of luxury and comfort c...	South Lake Union is a bustling urban neighborh...
-8	H548241	Bellevue, Washington	1,275,000	4	3	3200	Step into this luxurious, meticulously designe...	Bellevue, often rated as one of the best place...
-9	R583261	Capitol Hill, Seattle	1,350,800	5	3	2800	Welcome to this architectural marvel, located ...	Capitol Hill, Seattle is renowned for its vibr...
-```
-
-5. **Store Listings in Vector Database**: Initialize and populate your vector database with the generated listings and their embeddings.
-
-6. **Implement Buyer Preference Interface**: Collect and process buyer preferences to structure these for querying against the vector database.
+   ```
+5. **Implement Buyer Preference Interface**: Collect and process buyer preferences to structure these for querying against the vector database.
+   
+6. **Store Listings in Vector Database**: Initialize and populate your vector database with the generated listings and their embeddings.
+   ```python
+    loader = DataFrameLoader(data_sort, page_content_column="Langchain_page_content")
+    docs = loader.load()
+    splitter = CharacterTextSplitter(chunk_size=2000, chunk_overlap=0)
+    split_docs = splitter.split_documents(docs)
+    embeddings = OpenAIEmbeddings(openai_api_key=openai.api_key)
+    db = Chroma.from_documents(split_docs, embeddings)
+    retriever=db.as_retriever()
+    ```
 
 7. **Perform Listing Matching and Personalization**: Use semantic search to find listings matching the buyer's preferences and personalize the descriptions using LLMs.
+   ```python
+    def collect_buyer_preferences():
+    questions = [
+        "What is the range of your budget for buying a house? (e.g., 700000-3000000)",
+        "What size range are you looking for in square feet for your house? (e.g., 1000-2500)",
+        "What is the minimum number of Bedrooms you are looking for? (e.g., 3)",
+        "What is the minimum number of Bathrooms you are looking for? (e.g., 3)",
+        "What are 3 most important things for you in choosing this property? (e.g., A quiet neighborhood, good local schools, and convenient shopping options.)",
+        "Which amenities would you like? (e.g., A backyard for gardening, a two-car garage, and a modern, energy-efficient heating system.)",
+        "Which transportation options are important to you? (e.g., Easy access to a reliable bus line, proximity to a major highway, and bike-friendly roads.)",
+        "Do you have any other preferences? (e.g., A balance between suburban tranquility and urban amenities.)",
+    ]
+
+    # Initialize an empty list to hold each row (question and answer)
+    data = []
+
+    # Iterate through each question, collecting the answer
+    for question in questions:
+        print(question)  # Display the question
+        answer = input()  # Collect the user's answer
+        data.append({"Question": question, "Answer": answer})  # Append the question and answer as a dict
+
+    # Convert the list of dicts into a DataFrame
+    answers_df = pd.DataFrame(data)
+
+    # Return the DataFrame containing the answers
+    return answers_df
+
+# Collect preferences from the user and store them in a DataFrame
+buyer_preferences_df = collect_buyer_preferences()
+```
 
 8. **Display Matched Listings**: Present the personalized listings to the user.
+```python
+# Load the QA chain
+chain = load_qa_chain(llm, prompt=prompt, chain_type="stuff")
 
+# Run the chain with the extracted Document objects and the query
+results = chain.run(input_documents=similar_docs, query=query)
+
+print(results)
+```
 ## Additional Notes
 
 - **Version Control**: Keep track of the `openai` library version and other dependencies to ensure compatibility.
@@ -137,12 +173,14 @@ Unique ID	Neighborhood	Price ($)	Bedrooms	Bathrooms	House Size (sqft)	Descriptio
 ## Environment and Dependencies
 
 - Python
-- LangChain
-- OpenAI API GPT-3.5
-- Vector Database (ChromaDB)
-- Additional Python packages as listed in `requirements.txt`
+- OpenAI API GPT-3.5 (openai==0.28.1)
+- LangChain (langchain==0.0.305)
+- Vector Database (chromadb==0.4.15)
+- tiktoken
+- langchain_core 
 
 ## Checklist
 
 - `HomeMatch.ipynb`: Application code.
 - `real_estate_listings.csv`: At least 10 generated real estate listings for testing and development.
+- `api_key.txt`: Dummy api_key, please replace by your own api key.
