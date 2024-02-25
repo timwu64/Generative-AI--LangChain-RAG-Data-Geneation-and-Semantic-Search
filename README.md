@@ -19,15 +19,6 @@ The primary goal of "HomeMatch" is to create a seamless, engaging, and tailored 
 - **User Preference Interface**: Captures and processes buyer preferences in a structured manner.
 - **Vector Database Integration**: Efficiently matches listings with buyer preferences using semantic embeddings.
 
-## Functionality
-
-The core functionality of "HomeMatch" includes:
-
-- **Understanding Buyer Preferences**: Interpreting buyers' requirements and preferences in natural language, including to location, property type, budget, and amenities.
-- **Personalized Listing Descriptions**: Generating customized property descriptions that highlight features relevant to the buyer's preferences, ensuring all information remains factual.
-- **Vector Database Integration**: Matching properties with buyer preferences by connecting with a vector database where all available property listings are stored.
-- **Presentation of Listings**: Displaying personalized listings in an engaging and informative manner.
-
 ## Setup Instructions
 
 ### Step 1: Python Project Initialization
